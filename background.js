@@ -29,14 +29,18 @@ function defaultPrefs() {
       'kongregate.com',
       'newgrounds.com',
       'addictinggames.com',
-      'hulu.com'
+      'hulu.com',
+      'kijiji.ca',
+      'amazon.ca',
+      'bungie.net'
     ],
     durations: { // in seconds
       work: 25 * 60,
       break: 5 * 60
     },
-    shouldRing: true,
+    shouldRing: false,
     clickRestarts: false,
+    showNotifications: true,
     whitelist: false
   }
 }
@@ -296,6 +300,10 @@ var notification, mainPomodoro = new Pomodoro({
         path: ICONS.ACTION.PENDING[timer.pomodoro.nextMode]
       });
       chrome.browserAction.setBadgeText({text: ''});
+      
+      if (timer.pomodoro.nextMode == 'work') {
+          mainPomodoro.start();
+      }
       
       if(PREFS.showNotifications) {
         var nextModeName = chrome.i18n.getMessage(timer.pomodoro.nextMode);
